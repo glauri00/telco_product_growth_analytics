@@ -75,3 +75,26 @@ Key transformations applied:
 - 📈 **ARPU grows 33x from the lowest to the highest tenure bucket** ($143 at 0–6 months vs. $4,685 at 48+ months). Long-term customers are not just more loyal, they are categorically more valuable.
 - 🧪 **A 10% discount did not reduce churn** in the simulated experiment, while also lowering ARPU by ~$200. Indiscriminate discounting destroys margin without improving retention.
 - ⚠️ **$1.45M in annualized revenue is at risk from month-to-month churn alone** : nearly 9x the exposure of one-year and two-year contracts combined.
+
+## Repository Structure
+ 
+```
+telco-product-growth-analytics/
+│
+├── README.md
+├── queries/
+    └── revenue_composition_by_contract_type.sql
+    └── revenue_concentration.sql
+    └── customer_lifetime_distribution.sql
+    └── global_churn_rate.sql
+    └── early_churn_detection.sql
+    └── high_risk_segment_discovery.sql 
+    └── price_sensitivity_analysis.sql 
+    └── upsell_opportunity_identification.sql 
+    └── annualized_revenue_at_risk.sql 
+    └── feature_adoption_impact.sql 
+    └── bundle_effect.sql 
+    └── digital_maturity_segmentation.sql
+    └── ab_test_simulation_discount_offer.sql 
+    └── ab_test_onboarding_intervention.sql 
+    └── statistical_lift_calculation.sql 
