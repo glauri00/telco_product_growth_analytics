@@ -105,7 +105,7 @@ the $1.45M revenue at risk identified above.
 telco-product-growth-analytics/
 │
 ├── README.md
-├── README.md
+├── TelcoProject.ipynb
 ├── queries/
     └── revenue_composition_by_contract_type.sql
     └── revenue_concentration.sql
