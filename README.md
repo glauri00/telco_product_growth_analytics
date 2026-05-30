@@ -1,12 +1,13 @@
 # telco_product_growth_analytics
-Data analytics project leveraging SQL to interrogate the Telco Customer Churn dataset. Covers business-driven queries across revenue composition, churn modeling, pricing sensitivity, product adoption, and A/B test simulation to derive decision-ready insights.
+End-to-end analytics project on the IBM Telco Customer Churn dataset combining SQL business intelligence and Python machine learning. Key findings: 49% of customers churn within the first 10 months; month-to-month contracts drive the highest churn rate; customers with 6 add-on services churn at 5% vs 46% with none. A Logistic Regression model achieves AUC-ROC of 0.82, correctly identifying churners in 82% of cases. Actionable recommendation: prioritize retention efforts on new customers in the first 10 months with month-to-month contracts and low service adoption.
 ## :bookmark_tabs: Table of Contents
 1. [Project Overview](#project-overview)
 2. [Dataset](#dataset)
 3. [Data Cleaning](#data-cleaning)
 4. [Analysis Structure](#analysis-structure)
 5. [Key Insights](#key-insights)
-6. [Repository Structure](#repository-structure)
+6. [Predictive Model ](#predictive-model)
+7. [Repository Structure](#repository-structure)
 ## Project Overview
 This project applies structured SQL analysis to the Telco Customer Churn public dataset to answer real-world business questions across five analytical domains, from revenue aggregation to A/B test simulation and statistical lift calculation.
 
@@ -64,7 +65,7 @@ Key transformations applied:
 ### Experimentation & A/B Testing
  
 - **A/B Test Simulation — Discount Offer**: Assigns customers to two groups via hash-based modulo (`MOD(customer_id_hash, 2)`) and compares churn rate and ARPU between a control group and a simulated 10% discount group.
-- **A/B Test — Onboarding Intervention**: Isolates new customers (<6 months tenure), splits them into control and treatment groups, and compares churn rates to evaluate the hypothetical impact of an improved onboarding experience.
+- **A/B Test Simulation — Onboarding Intervention**: Isolates new customers (<6 months tenure), splits them into control and treatment groups, and compares churn rates to evaluate the hypothetical impact of an improved onboarding experience.
 - **Statistical Lift Calculation**: Computes the relative lift between treatment and control groups, outputting control rate, treatment rate, absolute difference, and lift, applying standard experiment evaluation methodology.
 ## Key Insights
  
@@ -76,11 +77,34 @@ Key transformations applied:
 - 🧪 **A 10% discount did not reduce churn** in the simulated experiment, while also lowering ARPU by ~$200. Indiscriminate discounting destroys margin without improving retention.
 - ⚠️ **$1.45M in annualized revenue is at risk from month-to-month churn alone** : nearly 9x the exposure of one-year and two-year contracts combined.
 
+## Predictive Model
+
+To move from insight to action, a Logistic Regression model was trained 
+to predict individual churn probability.
+
+**Model Performance:**
+- AUC-ROC: 0.82 — the model correctly ranks churners above 
+  non-churners in 82% of cases
+- F1 Score: 0.60 — reflects the inherent class imbalance 
+  (27% churners vs 73% non-churners), addressed via 
+  class_weight='balanced'
+
+**Key finding:** lowering the classification threshold from 0.50 
+to 0.35 improves recall significantly — prioritizing the capture 
+of at-risk customers over precision. In a retention context, 
+missing a churner is costlier than a false alarm.
+
+**Business application:** applying the model to the full customer 
+base, the top 20% highest-risk customers should be prioritized 
+for retention outreach — estimated to cover the majority of 
+the $1.45M revenue at risk identified above.
+
 ## Repository Structure
  
 ```
 telco-product-growth-analytics/
 │
+├── README.md
 ├── README.md
 ├── queries/
     └── revenue_composition_by_contract_type.sql
